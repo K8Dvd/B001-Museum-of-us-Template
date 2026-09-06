@@ -6,26 +6,35 @@ export const museumData = {
   },
 
   curatorNote: `
-    Welcome to the Museum of Us.
+Welcome to the Museum of Us.
 
-    This isn't a museum filled with famous paintings,
-    priceless sculptures, or pieces of history.
+This isn't a museum filled with famous paintings,
+priceless sculptures, or pieces of history.
 
-    This is a collection of something much more precious—
-    the little moments that became our story.
+This is a collection of something much more precious —
+the little moments that became our story.
 
-    Every photograph here holds a memory.
-    Every memory holds a feeling.
-    And every feeling reminds me of you.
+Every photograph here holds a memory.
+Every memory holds a feeling.
+And every feeling reminds me of you.
 
-    Take your time walking through our little museum.
+Take your time walking through our little museum.
 
-    Because if I could keep anything forever,
-    it would be us.
-  `,
+Because if I could keep anything forever,
+it would be us.
+`,
 
   song: {
     youtubeId: "kCZVWotoDVU",
+    title: "Can't Help Falling in Love",
+    artist: "Kina Grannis",
+  },
+
+  video: {
+    src: "/videos/couple-video.mp4",
+    title: "Moving Memories",
+    description:
+      "Some memories are better when they move.",
   },
 
   exhibits: [
@@ -37,6 +46,7 @@ export const museumData = {
       description:
         "Every story has a beginning. Ours just happened to become my favorite one.",
     },
+
     {
       image: "/photos/photo-2.jpg",
       number: "02",
@@ -45,6 +55,7 @@ export const museumData = {
       description:
         "A simple day that somehow became one of the memories I never want to forget.",
     },
+
     {
       image: "/photos/photo-3.jpg",
       number: "03",
@@ -53,6 +64,7 @@ export const museumData = {
       description:
         "Somewhere between ordinary days, we became something extraordinary.",
     },
+
     {
       image: "/photos/photo-4.jpg",
       number: "04",
@@ -61,6 +73,7 @@ export const museumData = {
       description:
         "The little things were never really little when they came from you.",
     },
+
     {
       image: "/photos/photo-5.jpg",
       number: "05",
@@ -69,6 +82,7 @@ export const museumData = {
       description:
         "If I could revisit one day again and again, this would be one of them.",
     },
+
     {
       image: "/photos/photo-6.jpg",
       number: "06",
@@ -77,6 +91,7 @@ export const museumData = {
       description:
         "Some of my favorite memories are the ones where we laughed until everything else disappeared.",
     },
+
     {
       image: "/photos/photo-7.jpg",
       number: "07",
@@ -85,6 +100,7 @@ export const museumData = {
       description:
         "Not every beautiful memory needs a grand story. Sometimes being together is enough.",
     },
+
     {
       image: "/photos/photo-8.jpg",
       number: "08",
@@ -93,6 +109,7 @@ export const museumData = {
       description:
         "And somehow, our story kept getting better.",
     },
+
     {
       image: "/photos/photo-9.jpg",
       number: "09",
@@ -101,6 +118,7 @@ export const museumData = {
       description:
         "Different days. Different places. Still the same two people choosing each other.",
     },
+
     {
       image: "/photos/photo-10.jpg",
       number: "10",

@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
 
 :root {
-  font-family: "DM Sans", sans-serif;
-  color: #eee9df;
+  font-family: "Inter", sans-serif;
+  color: #eee8dc;
   background: #080706;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,30 +15,33 @@
 html,
 body,
 #root {
-  width: 100%;
-  height: 100%;
   margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #080706;
 }
 
 body {
   overflow: hidden;
-  background: #080706;
 }
 
 button {
   font: inherit;
 }
 
-/* =====================================================
+button:focus-visible {
+  outline: 2px solid rgba(211, 177, 110, 0.8);
+  outline-offset: 4px;
+}
+
+/* =========================================================
    ENTRANCE
-===================================================== */
+========================================================= */
 
 .entrance {
-  width: 100vw;
-  height: 100vh;
-  min-height: 650px;
-
-  position: relative;
+  position: fixed;
+  inset: 0;
+  min-height: 100vh;
   overflow: hidden;
 
   display: flex;
@@ -47,134 +50,162 @@ button {
 
   background:
     radial-gradient(
-      ellipse at center,
-      rgba(97, 77, 51, 0.18) 0%,
-      rgba(17, 14, 11, 0.15) 35%,
-      #050504 80%
+      circle at 50% 42%,
+      rgba(119, 91, 54, 0.16),
+      transparent 30%
     ),
-    #080706;
+    linear-gradient(
+      180deg,
+      #11100e 0%,
+      #090807 55%,
+      #050504 100%
+    );
 }
 
 .entrance::before {
   content: "";
-
   position: absolute;
   inset: 0;
 
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0,
-      transparent 100px,
-      rgba(255, 255, 255, 0.012) 101px,
-      transparent 102px
+  pointer-events: none;
+
+  opacity: 0.28;
+
+  background-image:
+    radial-gradient(
+      rgba(255, 255, 255, 0.12) 0.5px,
+      transparent 0.5px
     );
 
-  pointer-events: none;
+  background-size: 5px 5px;
+  mix-blend-mode: soft-light;
 }
 
 .entrance-glow {
   position: absolute;
 
-  width: 700px;
-  height: 700px;
+  width: 650px;
+  height: 650px;
 
-  top: -350px;
   left: 50%;
+  top: 45%;
 
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 
   background:
     radial-gradient(
-      ellipse,
-      rgba(255, 214, 145, 0.13),
-      transparent 70%
+      circle,
+      rgba(187, 148, 88, 0.12),
+      transparent 68%
     );
 
   filter: blur(20px);
+
+  pointer-events: none;
 }
 
 .entrance-content {
   position: relative;
   z-index: 2;
 
+  width: min(900px, 90vw);
+
   text-align: center;
 
-  width: min(700px, 90vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  animation: entranceFade 1.2s ease forwards;
+}
+
+@keyframes entranceFade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .museum-small-label {
-  font-size: 9px;
-  letter-spacing: 5px;
+  font-size: 10px;
+  letter-spacing: 0.34em;
 
-  color: #a8987f;
+  color: rgba(222, 199, 163, 0.58);
 
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .entrance h1 {
-  font-family: "Cormorant Garamond", serif;
-
-  font-size: clamp(70px, 10vw, 125px);
-
-  line-height: 0.75;
-
-  font-weight: 500;
-
   margin: 0;
 
-  letter-spacing: -4px;
+  font-family: "Cormorant Garamond", serif;
 
-  color: #eee7dc;
+  font-size: clamp(70px, 11vw, 150px);
+
+  font-weight: 400;
+
+  line-height: 0.76;
+
+  letter-spacing: -0.045em;
+
+  color: #eee7da;
 }
 
 .entrance h1 span {
   display: block;
 
+  margin-top: 18px;
+
+  font-size: 0.58em;
+
   font-style: italic;
-  font-weight: 400;
 
-  color: #bda988;
+  letter-spacing: 0.015em;
 
-  margin-top: 15px;
+  color: #cdb184;
 }
 
 .entrance-subtitle {
-  font-family: "Playfair Display", serif;
+  margin: 38px 0 42px;
 
-  font-style: italic;
+  font-size: 11px;
 
-  font-size: 14px;
+  line-height: 2;
 
-  line-height: 1.8;
+  letter-spacing: 0.11em;
 
-  color: #8f887c;
+  text-transform: uppercase;
 
-  margin: 35px 0 40px;
+  color: rgba(229, 220, 204, 0.55);
 }
 
 .entrance-door {
-  width: 270px;
-  height: 170px;
-
-  margin: 0 auto 35px;
-
   position: relative;
 
-  border: 1px solid rgba(186, 157, 111, 0.32);
+  width: 150px;
+  height: 195px;
+
+  margin-bottom: 34px;
+
+  border: 1px solid rgba(199, 167, 110, 0.3);
 
   background:
     linear-gradient(
       90deg,
       rgba(255, 255, 255, 0.025),
-      rgba(255, 255, 255, 0.07),
-      rgba(255, 255, 255, 0.02)
+      transparent 50%,
+      rgba(255, 255, 255, 0.025)
     ),
-    #0d0b09;
+    #151310;
 
   box-shadow:
-    0 0 0 8px rgba(255, 255, 255, 0.01),
-    0 30px 80px rgba(0, 0, 0, 0.8);
+    inset 0 0 0 8px rgba(214, 186, 133, 0.035),
+    0 20px 80px rgba(0, 0, 0, 0.5);
 }
 
 .entrance-door::before,
@@ -183,12 +214,12 @@ button {
 
   position: absolute;
 
-  top: 10px;
-  bottom: 10px;
+  top: 12px;
+  bottom: 12px;
 
   width: 1px;
 
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(211, 180, 121, 0.14);
 }
 
 .entrance-door::before {
@@ -196,132 +227,119 @@ button {
 }
 
 .entrance-door::after {
-  left: 25%;
-
-  box-shadow:
-    135px 0 rgba(255, 255, 255, 0.04);
+  left: 12px;
 }
 
 .door-sign {
   position: absolute;
 
-  left: 50%;
   top: 50%;
+  left: 50%;
 
   transform: translate(-50%, -50%);
 
-  width: 210px;
+  width: 105px;
 
-  padding: 15px;
+  padding: 14px 8px;
 
-  border:
-    1px solid
-    rgba(187, 158, 111, 0.28);
+  border: 1px solid rgba(210, 178, 119, 0.34);
 
-  background:
-    rgba(5, 5, 4, 0.8);
+  background: rgba(15, 13, 10, 0.78);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
 }
 
 .door-sign span,
 .door-sign small {
-  display: block;
-
   font-size: 7px;
 
-  letter-spacing: 2.5px;
+  letter-spacing: 0.2em;
 
-  color: #837967;
+  color: rgba(215, 187, 143, 0.58);
 }
 
 .door-sign strong {
-  display: block;
-
-  margin: 8px 0;
-
   font-family: "Cormorant Garamond", serif;
 
-  font-size: 20px;
+  font-size: 17px;
 
-  letter-spacing: 2px;
+  font-weight: 500;
 
-  color: #c7b18e;
+  color: #d6bc8d;
 }
 
 .enter-button {
+  border: 1px solid rgba(208, 174, 110, 0.45);
+
+  background: rgba(190, 157, 99, 0.06);
+
+  color: #dfcfaf;
+
+  padding: 15px 23px;
+
   cursor: pointer;
 
-  border:
-    1px solid
-    rgba(196, 167, 119, 0.5);
-
-  background: transparent;
-
-  color: #d8c7a9;
-
-  padding: 15px 24px;
-
   display: inline-flex;
-
   align-items: center;
 
-  gap: 25px;
+  gap: 20px;
 
-  letter-spacing: 1px;
+  font-size: 9px;
 
-  font-size: 10px;
+  letter-spacing: 0.22em;
 
   text-transform: uppercase;
 
   transition:
     background 0.3s ease,
-    color 0.3s ease,
+    border-color 0.3s ease,
     transform 0.3s ease;
 }
 
 .enter-button:hover {
-  background: #c3aa81;
+  background: rgba(190, 157, 99, 0.13);
 
-  color: #0a0907;
+  border-color: rgba(222, 194, 139, 0.72);
 
   transform: translateY(-2px);
 }
 
 .button-arrow {
-  font-size: 17px;
+  font-size: 16px;
+  line-height: 1;
 }
 
 .entrance-hint {
   margin-top: 22px;
 
-  font-family: "Playfair Display", serif;
+  font-size: 8px;
 
-  font-size: 10px;
+  letter-spacing: 0.16em;
 
-  font-style: italic;
+  text-transform: uppercase;
 
-  color: #615b52;
+  color: rgba(230, 220, 203, 0.28);
 }
 
-/* =====================================================
-   MAIN MUSEUM
-===================================================== */
+/* =========================================================
+   MUSEUM
+========================================================= */
 
 .museum {
-  width: 100vw;
-  height: 100vh;
+  position: fixed;
 
-  position: relative;
+  inset: 0;
+
+  width: 100%;
+  height: 100vh;
 
   overflow: hidden;
 
-  background: #080706;
-
-  user-select: none;
+  background: #0a0907;
 }
-
-/* =====================================================
-   HIDDEN YOUTUBE PLAYER
-===================================================== */
 
 .youtube-player {
   position: fixed;
@@ -333,29 +351,62 @@ button {
 
   pointer-events: none;
 
-  top: -10px;
   left: -10px;
+  top: -10px;
 }
 
-/* =====================================================
+.side-line {
+  position: fixed;
+
+  z-index: 30;
+
+  top: 0;
+  bottom: 0;
+
+  width: 1px;
+
+  background: rgba(216, 190, 145, 0.12);
+
+  pointer-events: none;
+}
+
+.left-line {
+  left: 30px;
+}
+
+.right-line {
+  right: 30px;
+}
+
+/* =========================================================
    HEADER
-===================================================== */
+========================================================= */
 
 .museum-header {
   position: fixed;
 
-  z-index: 50;
+  z-index: 40;
 
-  top: 28px;
+  left: 0;
+  right: 0;
+  top: 0;
 
-  left: 35px;
-  right: 35px;
+  height: 92px;
+
+  padding: 0 58px;
 
   display: flex;
 
   justify-content: space-between;
 
   align-items: center;
+
+  pointer-events: none;
+}
+
+.museum-brand,
+.header-actions {
+  pointer-events: auto;
 }
 
 .museum-brand {
@@ -363,13 +414,12 @@ button {
 
   align-items: center;
 
-  gap: 11px;
+  gap: 12px;
 }
 
 .brand-mark {
-  font-size: 13px;
-
-  color: #b79a70;
+  color: #c9a66b;
+  font-size: 17px;
 }
 
 .museum-brand strong {
@@ -377,30 +427,63 @@ button {
 
   font-size: 9px;
 
-  letter-spacing: 3px;
+  letter-spacing: 0.23em;
 
   font-weight: 500;
 
-  color: #c5b7a0;
+  color: rgba(239, 231, 215, 0.78);
 }
 
 .museum-brand small {
   display: block;
 
-  font-size: 6px;
+  margin-top: 5px;
 
-  letter-spacing: 2px;
+  font-size: 7px;
 
-  color: #625b50;
+  letter-spacing: 0.2em;
 
-  margin-top: 4px;
+  color: rgba(224, 210, 188, 0.35);
 }
 
-/* =====================================================
-   HEADER ACTIONS
-===================================================== */
-
 .header-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.music-button,
+.note-button {
+  border: 1px solid rgba(210, 179, 122, 0.22);
+
+  background: rgba(10, 9, 7, 0.5);
+
+  color: rgba(236, 227, 211, 0.7);
+
+  cursor: pointer;
+
+  min-height: 34px;
+
+  padding: 8px 12px;
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.music-button:hover,
+.note-button:hover {
+  border-color: rgba(210, 179, 122, 0.5);
+
+  background: rgba(210, 179, 122, 0.07);
+
+  color: #eee3cf;
+}
+
+.music-button {
   display: flex;
 
   align-items: center;
@@ -408,98 +491,59 @@ button {
   gap: 8px;
 }
 
-/* =====================================================
-   MUSIC BUTTON
-===================================================== */
+.music-icon {
+  font-size: 13px;
+  color: #c9a66b;
+}
 
-.music-button {
-  cursor: pointer;
-
-  height: 34px;
-
-  padding: 0 12px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 7px;
-
-  border:
-    1px solid
-    rgba(180, 151, 107, 0.3);
-
-  background:
-    rgba(8, 7, 6, 0.75);
-
-  color: #817667;
-
+.music-text {
   font-size: 8px;
 
-  letter-spacing: 1px;
+  letter-spacing: 0.14em;
 
   text-transform: uppercase;
-
-  backdrop-filter: blur(10px);
-
-  transition: 0.3s ease;
-}
-
-.music-button:hover,
-.music-button.playing {
-  color: #cdb58d;
-
-  border-color:
-    rgba(204, 173, 126, 0.55);
-}
-
-.music-icon {
-  font-size: 14px;
 }
 
 .music-bars {
-  height: 13px;
+  height: 12px;
 
   display: flex;
 
   align-items: center;
 
   gap: 2px;
+
+  margin-left: 3px;
 }
 
 .music-bars i {
   display: block;
 
   width: 2px;
+  height: 7px;
 
-  background: #a9916e;
+  background: #c9a66b;
 
   animation:
-    musicBars 0.8s ease-in-out infinite alternate;
-}
-
-.music-bars i:nth-child(1) {
-  height: 5px;
-
-  animation-delay: 0s;
+    musicBars 0.8s
+    ease-in-out
+    infinite
+    alternate;
 }
 
 .music-bars i:nth-child(2) {
   height: 11px;
-
-  animation-delay: 0.2s;
+  animation-delay: 0.15s;
 }
 
 .music-bars i:nth-child(3) {
-  height: 7px;
-
-  animation-delay: 0.1s;
+  height: 6px;
+  animation-delay: 0.3s;
 }
 
 .music-bars i:nth-child(4) {
-  height: 12px;
-
-  animation-delay: 0.3s;
+  height: 9px;
+  animation-delay: 0.45s;
 }
 
 @keyframes musicBars {
@@ -512,61 +556,7 @@ button {
   }
 }
 
-/* =====================================================
-   CURATOR NOTE BUTTON
-===================================================== */
-
 .note-button {
-  cursor: pointer;
-
-  height: 34px;
-
-  padding: 0 13px;
-
-  background:
-    rgba(8, 7, 6, 0.75);
-
-  border:
-    1px solid
-    rgba(180, 151, 107, 0.3);
-
-  color: #a9977a;
-
-  font-size: 8px;
-
-  letter-spacing: 1px;
-
-  text-transform: uppercase;
-
-  backdrop-filter: blur(10px);
-
-  transition: 0.3s ease;
-}
-
-.note-button span {
-  margin-right: 8px;
-}
-
-.note-button:hover {
-  border-color:
-    rgba(204, 173, 126, 0.7);
-
-  color: #dfc69c;
-}
-
-/* =====================================================
-   EXHIBIT COUNTER
-===================================================== */
-
-.exhibit-counter {
-  position: fixed;
-
-  z-index: 50;
-
-  right: 38px;
-
-  bottom: 32px;
-
   display: flex;
 
   align-items: center;
@@ -575,89 +565,111 @@ button {
 
   font-size: 8px;
 
-  letter-spacing: 2px;
+  letter-spacing: 0.13em;
 
-  color: #80776b;
+  text-transform: uppercase;
 }
 
-.exhibit-counter span:first-child {
-  color: #c5ae88;
+.note-button span {
+  color: #c9a66b;
 }
 
-.exhibit-counter i {
-  font-style: normal;
+/* =========================================================
+   COUNTER
+========================================================= */
 
-  color: #3d3831;
-}
+.exhibit-counter {
+  position: fixed;
 
-/* =====================================================
-   MUSEUM STAGE
-===================================================== */
+  z-index: 40;
 
-.museum-stage {
-  width: 100vw;
-  height: 100vh;
-
-  overflow: hidden;
-}
-
-/* =====================================================
-   HORIZONTAL TRACK
-===================================================== */
-
-.museum-track {
-  width: 100%;
-  height: 100%;
+  left: 58px;
+  bottom: 42px;
 
   display: flex;
 
-  will-change: transform;
+  align-items: center;
+
+  gap: 8px;
+
+  font-family: "Cormorant Garamond", serif;
+
+  color: rgba(229, 216, 194, 0.48);
 }
 
-/* =====================================================
-   EXHIBIT
-===================================================== */
+.exhibit-counter span:first-child {
+  color: #cbb181;
 
-.exhibit {
-  flex: 0 0 100vw;
-
-  width: 100vw;
-  height: 100vh;
-
-  position: relative;
-
-  overflow: hidden;
-
-  opacity: 0.55;
-
-  transition:
-    opacity 0.45s ease;
+  font-size: 22px;
 }
 
-.exhibit.active {
-  opacity: 1;
+.exhibit-counter span:last-child {
+  font-size: 13px;
 }
 
-/* =====================================================
-   MUSEUM ROOM
-===================================================== */
+.exhibit-counter i {
+  font-size: 10px;
 
-.museum-room {
+  font-style: normal;
+
+  opacity: 0.4;
+}
+
+/* =========================================================
+   MUSEUM TRACK
+========================================================= */
+
+.museum-stage {
   position: absolute;
 
   inset: 0;
 
+  overflow: hidden;
+}
+
+.museum-track {
+  display: flex;
+
+  width: max-content;
+
+  height: 100%;
+
+  will-change: transform;
+}
+
+.exhibit {
+  width: 100vw;
+
+  height: 100vh;
+
+  flex: 0 0 100vw;
+
+  position: relative;
+}
+
+/* =========================================================
+   MUSEUM ROOM
+========================================================= */
+
+.museum-room {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
   background:
     radial-gradient(
-      ellipse at 50% 37%,
-      rgba(166, 132, 88, 0.075),
-      transparent 35%
+      ellipse at 50% 38%,
+      rgba(120, 94, 57, 0.18),
+      transparent 39%
     ),
     linear-gradient(
       180deg,
-      #11100e 0%,
-      #0b0a08 62%,
-      #080706 100%
+      #14120f 0%,
+      #0b0a08 72%,
+      #070605 100%
     );
 }
 
@@ -671,10 +683,10 @@ button {
   background:
     linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.02),
-      transparent 10%,
-      transparent 90%,
-      rgba(255, 255, 255, 0.02)
+      rgba(0, 0, 0, 0.3),
+      transparent 18%,
+      transparent 82%,
+      rgba(0, 0, 0, 0.3)
     );
 
   pointer-events: none;
@@ -685,71 +697,88 @@ button {
 
   position: absolute;
 
-  left: 0;
-  right: 0;
+  inset: 0;
 
-  bottom: 22%;
+  opacity: 0.17;
 
-  height: 1px;
+  pointer-events: none;
 
-  background:
-    rgba(255, 255, 255, 0.035);
+  background-image:
+    radial-gradient(
+      rgba(255, 255, 255, 0.13) 0.5px,
+      transparent 0.5px
+    );
+
+  background-size: 6px 6px;
+
+  mix-blend-mode: soft-light;
 }
 
-/* =====================================================
+/* =========================================================
    WALL LIGHT
-===================================================== */
+========================================================= */
 
 .wall-light {
   position: absolute;
 
-  width: 130px;
-  height: 300px;
+  top: 0;
+  bottom: 21%;
 
-  top: -60px;
+  width: 22vw;
+
+  opacity: 0.22;
+
+  filter: blur(38px);
+
+  pointer-events: none;
+}
+
+.wall-light.left {
+  left: -10vw;
 
   background:
     radial-gradient(
       ellipse,
-      rgba(255, 222, 165, 0.08),
-      transparent 70%
+      rgba(196, 161, 99, 0.38),
+      transparent 65%
     );
-
-  filter: blur(25px);
-}
-
-.wall-light.left {
-  left: 8%;
 }
 
 .wall-light.right {
-  right: 8%;
+  right: -10vw;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(196, 161, 99, 0.3),
+      transparent 65%
+    );
 }
 
-/* =====================================================
+/* =========================================================
    SPOTLIGHT
-===================================================== */
+========================================================= */
 
 .spotlight {
   position: absolute;
 
   z-index: 1;
 
-  top: -12vh;
+  top: 5%;
 
   left: 50%;
 
   transform: translateX(-50%);
 
-  width: 460px;
+  width: min(760px, 70vw);
 
-  height: 70vh;
+  height: 73vh;
 
   background:
     linear-gradient(
       180deg,
-      rgba(255, 231, 194, 0.07),
-      rgba(255, 224, 176, 0.025) 50%,
+      rgba(227, 202, 158, 0.13),
+      rgba(227, 202, 158, 0.025) 58%,
       transparent
     );
 
@@ -757,18 +786,18 @@ button {
     polygon(
       36% 0,
       64% 0,
-      100% 100%,
-      0 100%
+      92% 100%,
+      8% 100%
     );
 
-  filter: blur(4px);
+  filter: blur(9px);
 
   pointer-events: none;
 }
 
-/* =====================================================
+/* =========================================================
    EXHIBIT HEADING
-===================================================== */
+========================================================= */
 
 .exhibit-heading {
   position: absolute;
@@ -777,167 +806,348 @@ button {
 
   left: 50%;
 
-  top: 13%;
+  top: 104px;
 
   transform: translateX(-50%);
 
   text-align: center;
 
-  white-space: nowrap;
+  width: 100%;
+
+  pointer-events: none;
 }
 
 .exhibit-heading span {
   font-size: 7px;
 
-  letter-spacing: 4px;
+  letter-spacing: 0.33em;
 
-  color: #756a5a;
+  color: rgba(216, 191, 148, 0.44);
 }
 
 .exhibit-heading h2 {
-  margin: 7px 0 0;
+  margin: 9px 0 0;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: clamp(32px, 4vw, 54px);
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  color: #e8dfcf;
+
+  letter-spacing: -0.02em;
+}
+
+/* =========================================================
+   ARTWORK
+   Smaller than previous version
+========================================================= */
+
+.artwork-button {
+  position: absolute;
+
+  z-index: 8;
+
+  left: 50%;
+
+  /*
+    Moved slightly lower so the title above
+    never gets covered by the frame.
+  */
+  top: 57%;
+
+  transform: translate(-50%, -50%);
+
+  border: 0;
+
+  padding: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  /*
+    Previous: 510px
+    Now: around 400px desktop
+  */
+  width: min(410px, 40vw);
+
+  transition:
+    transform 0.45s ease,
+    filter 0.45s ease;
+}
+
+.artwork-button:hover {
+  transform:
+    translate(-50%, -50%)
+    translateY(-5px);
+
+  filter:
+    brightness(1.07)
+    drop-shadow(
+      0 22px 38px
+      rgba(0, 0, 0, 0.65)
+    );
+}
+
+/* =========================================================
+   FRAME SHADOW
+========================================================= */
+
+.frame-shadow {
+  position: absolute;
+
+  z-index: -5;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 94%;
+  height: 94%;
+
+  background: #000;
+
+  filter: blur(26px);
+
+  opacity: 0.95;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   MAIN ANTIQUE FRAME
+========================================================= */
+
+.museum-frame {
+  position: relative;
+
+  padding: 17px;
+
+  border-radius: 3px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #3e2a13 0%,
+      #765325 5%,
+      #c59a4e 11%,
+      #efd080 17%,
+      #946c2d 25%,
+      #d5ae61 34%,
+      #6e4b20 44%,
+      #b9883d 52%,
+      #e2bf6f 60%,
+      #795426 69%,
+      #c79a4b 78%,
+      #e7c678 87%,
+      #765124 94%,
+      #38230f 100%
+    );
+
+  box-shadow:
+    0 17px 38px
+      rgba(0, 0, 0, 0.72),
+
+    inset 0 0 0 2px
+      rgba(39, 23, 9, 0.9),
+
+    inset 0 0 0 5px
+      rgba(242, 211, 142, 0.42),
+
+    inset 0 0 0 8px
+      rgba(89, 56, 20, 0.82),
+
+    inset 0 0 0 11px
+      rgba(218, 177, 91, 0.55),
+
+    inset 0 0 0 14px
+      rgba(67, 40, 13, 0.82);
+}
+
+.museum-frame::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 5px;
+
+  border:
+    2px solid
+    rgba(238, 204, 132, 0.62);
+
+  box-shadow:
+    inset 0 0 0 2px
+      rgba(63, 38, 13, 0.75);
+
+  pointer-events: none;
+
+  z-index: 5;
+}
+
+.museum-frame::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 11px;
+
+  border:
+    2px solid
+    rgba(60, 36, 12, 0.8);
+
+  box-shadow:
+    inset 0 0 0 1px
+      rgba(235, 201, 126, 0.65);
+
+  pointer-events: none;
+
+  z-index: 5;
+}
+
+/* =========================================================
+   ORNATE GOLD LAYER
+========================================================= */
+
+.frame-gold {
+  position: relative;
+
+  padding: 12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #68491d,
+      #d1aa5e 12%,
+      #8b6228 27%,
+      #e1bd6d 42%,
+      #75501e 58%,
+      #d3aa58 73%,
+      #805b25 88%,
+      #dcb96c
+    );
+
+  box-shadow:
+    inset 0 0 0 2px
+      rgba(51, 29, 9, 0.82),
+
+    inset 0 0 0 5px
+      rgba(235, 201, 127, 0.48),
+
+    inset 0 0 0 8px
+      rgba(75, 43, 12, 0.76);
+}
+
+.frame-gold::before,
+.frame-gold::after {
+  position: absolute;
+
+  z-index: 10;
+
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 
   font-family:
     "Cormorant Garamond",
     serif;
 
-  font-weight: 500;
+  font-size: 29px;
 
-  font-size:
-    clamp(32px, 4vw, 50px);
+  font-weight: 700;
 
-  color: #d9ccb7;
+  color: #edcc7b;
 
-  letter-spacing: 1px;
+  text-shadow:
+    1px 1px 0 #6b4618,
+    0 2px 4px rgba(0, 0, 0, 0.8);
+
+  pointer-events: none;
 }
 
-/* =====================================================
-   ARTWORK BUTTON
-===================================================== */
+.frame-gold::before {
+  content: "❧";
 
-.artwork-button {
-  position: absolute;
+  left: -13px;
+  top: -15px;
 
-  z-index: 6;
-
-  left: 50%;
-
-  top: 26%;
-
-  transform: translateX(-50%);
-
-  width: 340px;
-
-  background: none;
-
-  border: none;
-
-  padding: 0;
-
-  cursor: pointer;
+  transform: rotate(-45deg);
 }
 
-/* =====================================================
-   FRAME SHADOW
-===================================================== */
+.frame-gold::after {
+  content: "❧";
 
-.frame-shadow {
-  position: absolute;
+  right: -13px;
+  bottom: -15px;
 
-  inset:
-    18px -8px -20px;
-
-  background:
-    rgba(0, 0, 0, 0.9);
-
-  filter: blur(18px);
-
-  z-index: -1;
+  transform: rotate(135deg);
 }
 
-/* =====================================================
-   MUSEUM FRAME
-===================================================== */
-
-.museum-frame {
-  width: 100%;
-
-  padding: 13px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #5d4830,
-      #bd9b64 18%,
-      #604b33 37%,
-      #b28b54 58%,
-      #483624 82%,
-      #9e7848
-    );
-
-  box-shadow:
-    inset
-      0 0 0 1px
-      rgba(255, 226, 170, 0.35),
-
-    0 15px 40px
-      rgba(0, 0, 0, 0.65);
-
-  transition:
-    transform 0.5s ease,
-    box-shadow 0.5s ease;
-}
-
-.frame-gold.inner {
-  padding: 9px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #261c13,
-      #8c6b3f,
-      #3a2919
-    );
-}
-
-/* =====================================================
+/* =========================================================
    PHOTO MAT
-===================================================== */
+========================================================= */
 
 .mat {
-  width: 100%;
-
-  aspect-ratio: 4 / 5;
-
-  background: #17130f;
-
-  padding: 9px;
-
   position: relative;
 
+  background:
+    linear-gradient(
+      135deg,
+      #ddd0b7,
+      #c4b396,
+      #e0d4bd
+    );
+
+  padding: 11px;
+
+  aspect-ratio: 4 / 3;
+
   overflow: hidden;
+
+  box-shadow:
+    inset 0 0 0 1px
+      rgba(45, 31, 17, 0.45),
+
+    inset 0 0 0 5px
+      rgba(255, 245, 218, 0.18);
+}
+
+.mat::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 6px;
+
+  border:
+    1px solid
+    rgba(77, 55, 28, 0.3);
+
+  pointer-events: none;
+
+  z-index: 4;
 }
 
 .mat img {
-  display: block;
-
   width: 100%;
   height: 100%;
+
+  display: block;
 
   object-fit: cover;
 
   filter:
-    saturate(0.82)
+    saturate(0.92)
     contrast(1.04);
-
-  transition:
-    transform 0.7s ease,
-    filter 0.7s ease;
 }
-
-/* =====================================================
-   GLASS REFLECTION
-===================================================== */
 
 .photo-glass {
   position: absolute;
@@ -946,388 +1156,219 @@ button {
 
   pointer-events: none;
 
+  z-index: 5;
+
   background:
     linear-gradient(
       125deg,
-      rgba(255, 255, 255, 0.11),
-      transparent 23%,
-      transparent 75%,
-      rgba(255, 255, 255, 0.025)
+      rgba(255, 255, 255, 0.2),
+      transparent 17%,
+      transparent 70%,
+      rgba(255, 255, 255, 0.035)
     );
-
-  opacity: 0.5;
 }
 
-/* =====================================================
-   ARTWORK HOVER
-===================================================== */
+/* =========================================================
+   TOP ORNAMENT
+========================================================= */
 
-.artwork-button:hover .museum-frame {
-  transform: translateY(-7px);
+.museum-frame .mat::after {
+  content: "✦";
 
-  box-shadow:
-    inset
-      0 0 0 1px
-      rgba(255, 226, 170, 0.4),
-
-    0 22px 55px
-      rgba(0, 0, 0, 0.8);
-}
-
-.artwork-button:hover .mat img {
-  transform: scale(1.025);
-
-  filter:
-    saturate(0.95)
-    contrast(1.05);
-}
-
-/* =====================================================
-   FRAME LABEL
-===================================================== */
-
-.frame-label {
-  width: 160px;
-
-  margin: 16px auto 0;
-
-  display: grid;
-
-  grid-template-columns:
-    auto 1fr;
-
-  column-gap: 9px;
-
-  text-align: left;
-
-  border-left:
-    1px solid #69563c;
-
-  padding-left: 10px;
-}
-
-.frame-label span {
-  grid-row: span 2;
-
-  font-size: 7px;
-
-  color: #7c6c55;
-
-  padding-top: 2px;
-}
-
-.frame-label strong {
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size: 16px;
-
-  font-weight: 500;
-
-  color: #b8aa94;
-}
-
-.frame-label small {
-  margin-top: 2px;
-
-  font-size: 6px;
-
-  letter-spacing: 1px;
-
-  color: #5e574e;
-}
-
-/* =====================================================
-   PEDESTAL
-===================================================== */
-
-.pedestal {
   position: absolute;
 
-  z-index: 3;
+  z-index: 8;
 
+  top: -2px;
   left: 50%;
-
-  top: 79%;
 
   transform:
     translateX(-50%);
 
-  width: 290px;
+  color:
+    rgba(238, 203, 126, 0.78);
 
-  height: 100px;
+  font-size: 17px;
+
+  text-shadow:
+    0 1px 3px
+    rgba(0, 0, 0, 0.8);
+
+  pointer-events: none;
 }
 
-.pedestal-top {
-  position: absolute;
+/* =========================================================
+   FRAME LABEL
+========================================================= */
 
-  top: 0;
-  left: 0;
+.frame-label {
+  margin-top: 10px;
 
-  width: 100%;
-  height: 13px;
+  display: flex;
 
-  background:
-    linear-gradient(
-      180deg,
-      #393127,
-      #1a1612
-    );
+  justify-content: center;
 
-  border:
-    1px solid
-    rgba(163, 132, 91, 0.18);
+  align-items: center;
 
-  box-shadow:
-    0 -4px 12px
-    rgba(0, 0, 0, 0.6);
+  gap: 9px;
+
+  color: rgba(218, 201, 173, 0.65);
 }
 
-.pedestal-body {
-  position: absolute;
+.frame-label span {
+  font-size: 6px;
 
-  top: 13px;
+  letter-spacing: 0.15em;
 
-  left: 20px;
-  right: 20px;
-
-  bottom: 12px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #15120f,
-      #282119 30%,
-      #17130f 70%,
-      #0d0b09
-    );
-
-  border-left:
-    1px solid
-    rgba(169, 139, 98, 0.1);
-
-  border-right:
-    1px solid
-    rgba(169, 139, 98, 0.1);
+  color: rgba(215, 187, 136, 0.5);
 }
 
-.pedestal-body span {
-  position: absolute;
+.frame-label strong {
+  font-family: "Cormorant Garamond", serif;
 
-  width: 1px;
-  height: 100%;
-
-  background:
-    rgba(255, 255, 255, 0.025);
-}
-
-.pedestal-body span:first-child {
-  left: 20%;
-}
-
-.pedestal-body span:last-child {
-  right: 20%;
-}
-
-.pedestal-base {
-  position: absolute;
-
-  bottom: 0;
-
-  left: 5px;
-  right: 5px;
-
-  height: 12px;
-
-  background: #15120f;
-
-  border:
-    1px solid
-    rgba(161, 130, 89, 0.12);
-}
-
-/* =====================================================
-   PLAQUE
-===================================================== */
-
-.plaque {
-  position: absolute;
-
-  z-index: 5;
-
-  right: 9%;
-
-  top: 67%;
-
-  width: 90px;
-
-  padding: 10px;
-
-  border:
-    1px solid
-    rgba(175, 144, 98, 0.18);
-
-  background:
-    rgba(10, 9, 7, 0.6);
-
-  text-align: center;
-}
-
-.plaque span {
-  display: block;
-
-  font-size: 5px;
-
-  letter-spacing: 2px;
-
-  color: #645b4d;
-}
-
-.plaque strong {
-  display: block;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size: 15px;
+  font-size: 17px;
 
   font-weight: 500;
 
-  color: #9c8a6e;
-
-  margin-top: 3px;
+  color: #d6bd8d;
 }
 
-/* =====================================================
+.frame-label small {
+  font-size: 6px;
+
+  letter-spacing: 0.12em;
+
+  color: rgba(214, 193, 160, 0.42);
+}
+
+/* =========================================================
+   NO PEDESTAL / NO CATALOGUE
+========================================================= */
+
+.pedestal,
+.plaque {
+  display: none !important;
+}
+
+/* =========================================================
    FLOOR
-===================================================== */
+========================================================= */
 
 .museum-floor {
   position: absolute;
 
-  z-index: 1;
+  z-index: 2;
+
+  bottom: 0;
 
   left: -10%;
-  right: -10%;
 
-  bottom: -5%;
+  width: 120%;
 
-  height: 27%;
+  height: 21%;
+
+  background:
+    linear-gradient(
+      180deg,
+      #17130e 0%,
+      #0a0806 72%,
+      #050403 100%
+    );
+
+  border-top:
+    1px solid
+    rgba(210, 182, 129, 0.08);
 
   transform:
     perspective(500px)
-    rotateX(48deg);
+    rotateX(14deg);
 
-  transform-origin:
-    center top;
+  transform-origin: top;
+}
+
+.museum-floor::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
 
   background:
     repeating-linear-gradient(
       90deg,
       transparent 0,
-      transparent 140px,
-      rgba(255, 255, 255, 0.018) 141px,
-      transparent 142px
-    ),
-    linear-gradient(
-      180deg,
-      #0e0c0a,
-      #050504
+      transparent 150px,
+      rgba(221, 193, 144, 0.018)
+        151px,
+      transparent 152px
     );
-
-  border-top:
-    1px solid
-    rgba(255, 255, 255, 0.025);
 }
 
-/* =====================================================
+/* =========================================================
    SCROLL HINT
-===================================================== */
+========================================================= */
 
 .scroll-hint {
   position: absolute;
 
-  z-index: 10;
+  z-index: 20;
 
-  bottom: 31px;
-
-  left: 50%;
-
-  transform:
-    translateX(-50%);
+  right: 55px;
+  bottom: 40px;
 
   display: flex;
 
   align-items: center;
 
-  gap: 13px;
+  gap: 10px;
 
-  color: #575148;
+  color: rgba(220, 203, 177, 0.38);
+}
 
-  font-size: 6px;
+.scroll-hint span:first-child {
+  font-size: 7px;
 
-  letter-spacing: 2px;
+  letter-spacing: 0.18em;
+}
+
+.scroll-hint span:last-child {
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 18px;
+
+  color: rgba(208, 177, 119, 0.55);
 }
 
 .scroll-line {
-  width: 35px;
-
+  width: 45px;
   height: 1px;
 
-  background: #514a40;
-
-  position: relative;
-
-  overflow: hidden;
+  background: rgba(208, 177, 119, 0.3);
 }
 
-.scroll-line::after {
-  content: "";
-
-  position: absolute;
-
-  left: -100%;
-
-  width: 100%;
-  height: 100%;
-
-  background: #ad936c;
-
-  animation:
-    scrollLine 1.8s infinite;
-}
-
-@keyframes scrollLine {
-  0% {
-    left: -100%;
-  }
-
-  50% {
-    left: 0;
-  }
-
-  100% {
-    left: 100%;
-  }
-}
-
-/* =====================================================
+/* =========================================================
    VIDEO BUTTON
-===================================================== */
+========================================================= */
 
 .video-exhibit-button {
   position: absolute;
 
   z-index: 20;
 
-  left: 50%;
+  right: 55px;
+  bottom: 35px;
 
-  bottom: 33px;
+  border:
+    1px solid
+    rgba(210, 179, 122, 0.28);
 
-  transform:
-    translateX(-50%);
+  background:
+    rgba(12, 10, 8, 0.68);
+
+  color:
+    rgba(231, 217, 191, 0.68);
+
+  padding: 11px 15px;
 
   cursor: pointer;
 
@@ -1337,66 +1378,36 @@ button {
 
   gap: 9px;
 
-  padding: 11px 16px;
+  font-size: 8px;
 
-  border:
-    1px solid
-    rgba(181, 148, 101, 0.35);
-
-  background:
-    rgba(12, 10, 8, 0.9);
-
-  color: #a99577;
-
-  font-size: 7px;
-
-  letter-spacing: 1.5px;
+  letter-spacing: 0.14em;
 
   text-transform: uppercase;
 
-  transition: 0.3s ease;
-}
-
-.video-exhibit-button span {
-  font-size: 11px;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .video-exhibit-button:hover {
-  color: #d8c19a;
+  background:
+    rgba(210, 179, 122, 0.1);
 
   border-color:
-    rgba(207, 172, 120, 0.7);
+    rgba(210, 179, 122, 0.5);
+
+  transform:
+    translateY(-2px);
 }
 
-/* =====================================================
-   SIDE LINES
-===================================================== */
-
-.side-line {
-  position: fixed;
-
-  z-index: 40;
-
-  top: 100px;
-  bottom: 100px;
-
-  width: 1px;
-
-  background:
-    rgba(255, 255, 255, 0.025);
+.video-exhibit-button span {
+  color: #c9a66b;
 }
 
-.left-line {
-  left: 18px;
-}
-
-.right-line {
-  right: 18px;
-}
-
-/* =====================================================
-   MODAL OVERLAY
-===================================================== */
+/* =========================================================
+   MODALS
+========================================================= */
 
 .modal-overlay {
   position: fixed;
@@ -1407,22 +1418,23 @@ button {
 
   display: flex;
 
-  justify-content: center;
-
   align-items: center;
 
-  background:
-    rgba(2, 2, 1, 0.82);
+  justify-content: center;
 
-  backdrop-filter: blur(10px);
+  padding: 30px;
+
+  background:
+    rgba(0, 0, 0, 0.78);
+
+  backdrop-filter: blur(9px);
 
   animation:
-    fadeIn 0.3s ease;
-
-  padding: 25px;
+    modalFade 0.3s ease
+    forwards;
 }
 
-@keyframes fadeIn {
+@keyframes modalFade {
   from {
     opacity: 0;
   }
@@ -1435,70 +1447,59 @@ button {
 .modal-close {
   position: absolute;
 
-  top: 14px;
+  z-index: 20;
+
   right: 16px;
+  top: 14px;
 
-  z-index: 5;
-
-  width: 30px;
-  height: 30px;
-
-  border: none;
+  border: 0;
 
   background: transparent;
 
-  color: #8c806d;
+  color:
+    rgba(230, 219, 198, 0.58);
+
+  font-size: 26px;
+
+  line-height: 1;
 
   cursor: pointer;
 
-  font-size: 23px;
-
-  font-weight: 200;
+  transition:
+    color 0.2s ease;
 }
 
 .modal-close:hover {
-  color: #d6c09c;
+  color: #e4cfaa;
 }
 
-/* =====================================================
-   CURATOR LETTER MODAL
-===================================================== */
+/* =========================================================
+   CURATOR NOTE
+========================================================= */
 
 .curator-modal {
-  width: min(600px, 94vw);
-
-  max-height: 85vh;
-
   position: relative;
 
-  padding: 12px;
+  width: min(700px, 92vw);
 
-  background:
-    linear-gradient(
-      135deg,
-      #634c31,
-      #a17e4e 15%,
-      #3b2c1c 45%,
-      #80603b
-    );
+  max-height: 90vh;
 
-  box-shadow:
-    0 40px 100px
-    rgba(0, 0, 0, 0.75);
+  display: flex;
+
+  justify-content: center;
 
   animation:
-    modalIn
-    0.45s
-    cubic-bezier(0.2, 0.8, 0.2, 1);
+    modalUp 0.45s ease
+    forwards;
 }
 
-@keyframes modalIn {
+@keyframes modalUp {
   from {
     opacity: 0;
 
     transform:
-      translateY(25px)
-      scale(0.97);
+      translateY(20px)
+      scale(0.98);
   }
 
   to {
@@ -1510,28 +1511,75 @@ button {
   }
 }
 
-.letter-paper {
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(185, 152, 101, 0.07),
-      transparent 70%
-    ),
-    #ddd0b8;
+/* =========================================================
+   SCROLLABLE LETTER
+========================================================= */
 
-  color: #42392d;
+.letter-paper {
+  position: relative;
+
+  width: min(620px, 88vw);
+
+  max-height:
+    calc(88vh - 24px);
 
   min-height: 500px;
 
-  padding:
-    50px
-    clamp(35px, 8vw, 75px);
+  overflow-y: auto;
 
-  position: relative;
+  overflow-x: hidden;
+
+  scroll-behavior: smooth;
+
+  padding: 48px 56px 52px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 10%,
+      rgba(255, 255, 255, 0.32),
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      #e7d8bb,
+      #d9c6a4 48%,
+      #e2d2b4
+    );
+
+  color: #4d3c29;
 
   box-shadow:
-    inset 0 0 40px
-    rgba(70, 50, 30, 0.12);
+    0 30px 90px
+      rgba(0, 0, 0, 0.55),
+
+    inset 0 0 60px
+      rgba(96, 69, 39, 0.12);
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(95, 72, 45, 0.45)
+    transparent;
+}
+
+.letter-paper::-webkit-scrollbar {
+  width: 7px;
+}
+
+.letter-paper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.letter-paper::-webkit-scrollbar-thumb {
+  background:
+    rgba(95, 72, 45, 0.35);
+
+  border-radius: 10px;
+}
+
+.letter-paper::-webkit-scrollbar-thumb:hover {
+  background:
+    rgba(95, 72, 45, 0.6);
 }
 
 .letter-paper::before {
@@ -1539,317 +1587,348 @@ button {
 
   position: absolute;
 
-  inset: 16px;
+  inset: 15px;
 
   border:
     1px solid
-    rgba(90, 65, 38, 0.13);
+    rgba(96, 69, 39, 0.16);
 
   pointer-events: none;
 }
 
 .letter-top {
-  position: absolute;
-
-  z-index: 2;
-
-  top: 27px;
-
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  width: calc(100% - 50px);
+  position: relative;
 
   display: flex;
 
-  justify-content: space-between;
+  justify-content: center;
 
   align-items: center;
 
-  color: #bca27d;
+  gap: 20px;
 
-  font-size: 6px;
+  font-size: 8px;
 
-  letter-spacing: 3px;
+  letter-spacing: 0.28em;
+
+  color:
+    rgba(77, 60, 41, 0.58);
 }
 
 .letter-top div {
-  font-size: 12px;
+  color:
+    rgba(116, 84, 45, 0.55);
+
+  font-size: 11px;
 }
 
 .letter-date {
-  text-align: right;
+  position: relative;
 
-  font-family:
-    "Playfair Display",
-    serif;
+  margin-top: 25px;
 
-  font-size: 11px;
+  padding-bottom: 22px;
 
-  font-style: italic;
+  border-bottom:
+    1px solid
+    rgba(82, 61, 39, 0.16);
 
-  color: #7b6a54;
-
-  margin-bottom: 35px;
-}
-
-.letter-text {
-  white-space: pre-line;
+  text-align: center;
 
   font-family:
     "Cormorant Garamond",
     serif;
 
-  font-size: 21px;
+  font-size: 15px;
 
-  line-height: 1.7;
+  font-style: italic;
 
-  min-height: 320px;
+  color:
+    rgba(77, 60, 41, 0.58);
+}
+
+.letter-text {
+  position: relative;
+
+  white-space: pre-wrap;
+
+  margin-top: 34px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(18px, 2vw, 22px);
+
+  line-height: 1.65;
+
+  color: #4b3926;
 }
 
 .typing-cursor {
   display: inline-block;
 
-  animation:
-    blink 0.7s infinite;
+  margin-left: 2px;
 
-  color: #806b50;
+  animation:
+    cursorBlink
+    0.8s
+    steps(1)
+    infinite;
 }
 
-@keyframes blink {
+@keyframes cursorBlink {
   50% {
     opacity: 0;
   }
 }
 
 .letter-signature {
-  margin-top: 25px;
+  position: relative;
 
-  font-family:
-    "Playfair Display",
-    serif;
+  margin-top: 42px;
 
-  font-style: italic;
+  padding-top: 20px;
 
-  font-size: 12px;
-
-  color: #76634c;
-}
-
-.letter-signature strong {
-  display: block;
+  border-top:
+    1px solid
+    rgba(82, 61, 39, 0.13);
 
   font-family:
     "Cormorant Garamond",
     serif;
 
-  font-size: 24px;
+  font-size: 16px;
 
-  font-weight: 500;
+  font-style: italic;
+
+  color:
+    rgba(75, 56, 37, 0.7);
+}
+
+.letter-signature strong {
+  display: block;
 
   margin-top: 5px;
 
-  color: #554532;
+  font-size: 23px;
+
+  font-weight: 500;
+
+  color: #4b3926;
 }
 
-/* =====================================================
-   PHOTO DETAIL MODAL
-===================================================== */
+/* =========================================================
+   PHOTO MODAL
+========================================================= */
 
 .exhibit-modal {
   position: relative;
 
-  width: min(900px, 94vw);
+  width: min(980px, 92vw);
 
   max-height: 88vh;
 
-  overflow: hidden;
+  overflow: auto;
 
   display: grid;
 
   grid-template-columns:
-    1.05fr 0.95fr;
+    1.35fr 0.8fr;
 
-  background: #0f0d0a;
+  background: #11100d;
 
   border:
     1px solid
-    rgba(178, 145, 97, 0.25);
+    rgba(211, 181, 125, 0.22);
 
   box-shadow:
-    0 40px 100px
-    rgba(0, 0, 0, 0.8);
+    0 35px 100px
+    rgba(0, 0, 0, 0.65);
 
   animation:
-    modalIn
-    0.45s
-    cubic-bezier(0.2, 0.8, 0.2, 1);
+    modalUp 0.4s ease
+    forwards;
 }
 
 .modal-image {
-  background: #080706;
-
   min-height: 500px;
 
-  padding: 28px;
+  background: #080706;
 
   display: flex;
 
   align-items: center;
 
   justify-content: center;
+
+  padding: 30px;
 }
 
 .modal-image img {
   width: 100%;
   height: 100%;
 
-  max-height: 75vh;
+  max-height: 72vh;
 
   object-fit: contain;
+
+  display: block;
 }
 
 .modal-info {
   padding:
-    70px
-    45px
-    40px;
+    62px 45px 45px;
 
   display: flex;
 
   flex-direction: column;
 
   justify-content: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      #17140f,
+      #0d0c09
+    );
 }
 
 .modal-info > span {
   font-size: 7px;
 
-  letter-spacing: 3px;
+  letter-spacing: 0.27em;
 
-  color: #907856;
+  color:
+    rgba(207, 177, 120, 0.5);
 }
 
 .modal-info h2 {
+  margin:
+    12px 0 5px;
+
   font-family:
     "Cormorant Garamond",
     serif;
 
-  font-size: 48px;
+  font-size: 42px;
 
-  font-weight: 500;
+  font-weight: 400;
 
-  color: #d0c0a6;
+  color: #e5dac7;
 
-  margin:
-    12px 0 2px;
+  line-height: 1;
 }
 
 .modal-info small {
-  color: #635b50;
+  font-size: 9px;
 
-  font-size: 8px;
+  letter-spacing: 0.13em;
 
-  letter-spacing: 2px;
-}
-
-.modal-info p {
-  font-family:
-    "Playfair Display",
-    serif;
-
-  font-style: italic;
-
-  color: #847b6d;
-
-  font-size: 14px;
-
-  line-height: 1.8;
-
-  margin-top: 35px;
+  color:
+    rgba(227, 213, 190, 0.35);
 }
 
 .modal-divider {
-  width: 35px;
-
+  width: 45px;
   height: 1px;
 
-  background: #776044;
+  margin:
+    28px 0;
 
-  margin: 28px 0;
+  background:
+    rgba(204, 171, 110, 0.4);
 }
 
-.modal-info em {
+.modal-info p {
+  margin: 0;
+
   font-family:
     "Cormorant Garamond",
     serif;
 
-  color: #a28b6a;
+  font-size: 20px;
 
-  font-size: 18px;
+  line-height: 1.55;
 
-  line-height: 1.5;
+  color:
+    rgba(229, 218, 200, 0.65);
 }
 
-/* =====================================================
+.modal-info em {
+  margin-top: 30px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 17px;
+
+  line-height: 1.5;
+
+  color:
+    rgba(205, 177, 128, 0.65);
+}
+
+/* =========================================================
    VIDEO MODAL
-===================================================== */
+========================================================= */
 
 .video-modal {
   position: relative;
 
-  width: min(950px, 94vw);
+  width: min(950px, 92vw);
 
-  background: #0c0b09;
+  background: #0d0c09;
 
   border:
     1px solid
-    rgba(178, 145, 97, 0.25);
+    rgba(211, 181, 125, 0.22);
 
   box-shadow:
-    0 40px 100px
-    rgba(0, 0, 0, 0.8);
-
-  padding: 20px;
+    0 35px 100px
+    rgba(0, 0, 0, 0.7);
 
   animation:
-    modalIn
-    0.45s
-    cubic-bezier(0.2, 0.8, 0.2, 1);
+    modalUp 0.4s ease
+    forwards;
 }
 
 .video-frame {
   width: 100%;
 
-  background: #050504;
+  background: #000;
+
+  aspect-ratio: 16 / 9;
 }
 
 .video-frame video {
   width: 100%;
-
-  max-height: 70vh;
+  height: 100%;
 
   display: block;
+
+  object-fit: contain;
 }
 
 .video-info {
   padding:
-    20px 5px 5px;
+    22px 28px 26px;
 }
 
 .video-info span {
   font-size: 7px;
 
-  letter-spacing: 3px;
+  letter-spacing: 0.27em;
 
-  color: #907856;
+  color:
+    rgba(207, 177, 120, 0.5);
 }
 
 .video-info h2 {
   margin:
-    8px 0 3px;
+    8px 0 4px;
 
   font-family:
     "Cormorant Garamond",
@@ -1857,195 +1936,415 @@ button {
 
   font-size: 34px;
 
-  font-weight: 500;
+  font-weight: 400;
 
-  color: #d0c0a6;
+  color: #e4d8c4;
 }
 
 .video-info p {
   margin: 0;
 
   font-family:
-    "Playfair Display",
+    "Cormorant Garamond",
     serif;
 
-  font-style: italic;
+  font-size: 16px;
 
-  font-size: 12px;
-
-  color: #756d62;
+  color:
+    rgba(225, 213, 194, 0.5);
 }
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* =========================================================
+   TABLET
+========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
+
   .museum-header {
-    top: 18px;
+    padding: 0 42px;
+  }
 
-    left: 20px;
-    right: 20px;
+  .artwork-button {
+    width: min(390px, 55vw);
+
+    top: 56%;
+  }
+
+  .exhibit-heading {
+    top: 105px;
+  }
+
+  .exhibit-counter {
+    left: 42px;
+  }
+
+  .scroll-hint,
+  .video-exhibit-button {
+    right: 42px;
+  }
+
+  .exhibit-modal {
+    grid-template-columns: 1fr;
+
+    max-height: 90vh;
+  }
+
+  .modal-image {
+    min-height: 350px;
+
+    max-height: 50vh;
+  }
+
+  .modal-info {
+    padding:
+      30px 35px 35px;
+  }
+
+  .modal-info h2 {
+    font-size: 36px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  body {
+    overflow: hidden;
+  }
+
+  .left-line {
+    left: 14px;
+  }
+
+  .right-line {
+    right: 14px;
+  }
+
+  .museum-header {
+    height: 76px;
+
+    padding: 0 25px;
   }
 
   .museum-brand strong {
     font-size: 7px;
+
+    letter-spacing: 0.18em;
+  }
+
+  .museum-brand small {
+    font-size: 6px;
+  }
+
+  .brand-mark {
+    font-size: 14px;
   }
 
   .header-actions {
-    gap: 4px;
+    gap: 6px;
+  }
+
+  .music-button,
+  .note-button {
+    min-height: 31px;
+
+    padding: 7px 9px;
   }
 
   .music-text {
     display: none;
   }
 
-  .music-button {
-    width: 34px;
+  .note-button {
+    font-size: 0;
 
-    padding: 0;
+    width: 31px;
 
     justify-content: center;
   }
 
-  .note-button {
-    font-size: 6px;
-
-    padding:
-      8px 10px;
+  .note-button span {
+    font-size: 11px;
   }
 
   .exhibit-heading {
-    top: 12%;
+    top: 94px;
+  }
+
+  .exhibit-heading span {
+    font-size: 6px;
   }
 
   .exhibit-heading h2 {
+    margin-top: 8px;
+
     font-size: 34px;
   }
 
+  /* -------------------------------------------------------
+     MOBILE FRAME
+     Kept large enough to see the photo,
+     but leaves space for the title.
+  ------------------------------------------------------- */
+
   .artwork-button {
-    width:
-      min(280px, 70vw);
+    width: min(350px, 78vw);
 
-    top: 25%;
+    top: 56%;
   }
 
-  .pedestal {
-    width:
-      min(260px, 65vw);
-
-    top: 78%;
+  .museum-frame {
+    padding: 13px;
   }
 
-  .plaque {
-    display: none;
+  .frame-gold {
+    padding: 9px;
   }
 
-  .museum-floor {
-    bottom: -3%;
-
-    height: 25%;
-  }
-
-  .side-line {
-    display: none;
-  }
-
-  .scroll-hint {
-    bottom: 25px;
-  }
-
-  .exhibit-counter {
-    right: 20px;
-
-    bottom: 25px;
-  }
-
-  .curator-modal {
+  .mat {
     padding: 8px;
   }
 
+  .frame-label {
+    margin-top: 8px;
+
+    gap: 6px;
+  }
+
+  .frame-label strong {
+    font-size: 15px;
+  }
+
+  .frame-gold::before,
+  .frame-gold::after {
+    font-size: 24px;
+
+    width: 34px;
+    height: 34px;
+  }
+
+  .museum-frame .mat::after {
+    font-size: 13px;
+  }
+
+  .scroll-hint {
+    right: 27px;
+
+    bottom: 29px;
+  }
+
+  .scroll-hint span:first-child {
+    font-size: 6px;
+  }
+
+  .scroll-line {
+    width: 30px;
+  }
+
+  .video-exhibit-button {
+    right: 25px;
+
+    bottom: 25px;
+
+    font-size: 7px;
+  }
+
+  .exhibit-counter {
+    left: 26px;
+
+    bottom: 29px;
+  }
+
+  .exhibit-counter span:first-child {
+    font-size: 19px;
+  }
+
+  /* =====================================================
+     ENTRANCE
+  ===================================================== */
+
+  .entrance h1 {
+    font-size:
+      clamp(
+        62px,
+        18vw,
+        100px
+      );
+  }
+
+  .entrance-subtitle {
+    font-size: 8px;
+
+    margin:
+      28px 0 34px;
+  }
+
+  .entrance-door {
+    width: 125px;
+
+    height: 165px;
+  }
+
+  .door-sign {
+    width: 88px;
+  }
+
+  .door-sign strong {
+    font-size: 14px;
+  }
+
+  /* =====================================================
+     LETTER
+  ===================================================== */
+
+  .modal-overlay {
+    padding: 14px;
+  }
+
+  .curator-modal {
+    width: 100%;
+
+    max-height: 94vh;
+  }
+
   .letter-paper {
-    min-height: 75vh;
+    width: 100%;
+
+    max-height:
+      calc(94vh - 10px);
+
+    min-height: 0;
 
     padding:
-      55px
-      30px
-      35px;
+      38px 27px 38px;
+  }
+
+  .letter-paper::before {
+    inset: 10px;
+  }
+
+  .letter-top {
+    gap: 10px;
+
+    font-size: 6px;
+
+    letter-spacing: 0.2em;
+  }
+
+  .letter-date {
+    margin-top: 20px;
+
+    padding-bottom: 17px;
+
+    font-size: 13px;
   }
 
   .letter-text {
+    margin-top: 25px;
+
     font-size: 18px;
 
     line-height: 1.6;
+  }
+
+  .letter-signature {
+    margin-top: 32px;
   }
 
   .letter-signature strong {
     font-size: 21px;
   }
 
+  /* =====================================================
+     PHOTO MODAL
+  ===================================================== */
+
   .exhibit-modal {
-    display: block;
-
-    max-height: 90vh;
-
-    overflow-y: auto;
+    width: 94vw;
   }
 
   .modal-image {
-    min-height: auto;
-
-    height: 48vh;
+    min-height: 280px;
 
     padding: 20px;
   }
 
   .modal-info {
     padding:
-      30px
-      25px
-      35px;
+      28px 25px 30px;
   }
 
   .modal-info h2 {
-    font-size: 38px;
+    font-size: 33px;
   }
 
   .modal-info p {
-    margin-top: 20px;
+    font-size: 18px;
   }
 
+  /* =====================================================
+     VIDEO
+  ===================================================== */
+
   .video-modal {
-    padding: 10px;
+    width: 94vw;
+  }
+
+  .video-info {
+    padding:
+      18px 20px 22px;
   }
 
   .video-info h2 {
-    font-size: 28px;
-  }
-
-  .entrance h1 {
-    font-size: 70px;
-  }
-
-  .entrance-door {
-    width: 230px;
-
-    height: 150px;
+    font-size: 29px;
   }
 }
 
-/* =====================================================
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .museum-header {
+    padding: 0 20px;
+  }
+
+  .artwork-button {
+    width: 78vw;
+
+    top: 55%;
+  }
+
+  .exhibit-heading h2 {
+    font-size: 31px;
+  }
+
+  .letter-paper {
+    padding-left: 22px;
+
+    padding-right: 22px;
+  }
+}
+
+/* =========================================================
    REDUCED MOTION
-===================================================== */
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
-    animation-duration:
-      0.01ms !important;
+    scroll-behavior: auto !important;
 
-    transition-duration:
-      0.01ms !important;
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
   }
 }

@@ -29,11 +29,6 @@ function App() {
 
   const playerRef = useRef<any>(null);
 
-  /*
-   * IMPORTANT:
-   * These refs prevent the wheel listener from resetting
-   * while the exhibit transition is still happening.
-   */
   const activeIndexRef = useRef(0);
   const museumProgressRef = useRef(0);
 
@@ -45,7 +40,7 @@ function App() {
   const animationRef = useRef<number | null>(null);
 
   /* =====================================================
-     KEEP REFS IN SYNC
+     KEEP REFS UPDATED
   ===================================================== */
 
   useEffect(() => {
@@ -87,7 +82,6 @@ function App() {
           events: {
             onReady: (event: any) => {
               event.target.setVolume(45);
-
               event.target.playVideo();
 
               setMusicPlaying(true);
@@ -95,7 +89,8 @@ function App() {
 
             onStateChange: (event: any) => {
               if (
-                event.data === window.YT.PlayerState.PLAYING
+                event.data ===
+                window.YT.PlayerState.PLAYING
               ) {
                 setMusicPlaying(true);
               }
@@ -115,9 +110,11 @@ function App() {
     if (window.YT && window.YT.Player) {
       createPlayer();
     } else {
-      window.onYouTubeIframeAPIReady = createPlayer;
+      window.onYouTubeIframeAPIReady =
+        createPlayer;
 
-      const script = document.createElement("script");
+      const script =
+        document.createElement("script");
 
       script.src =
         "https://www.youtube.com/iframe_api";
@@ -174,7 +171,8 @@ function App() {
       return;
     }
 
-    const text = museumData.curatorNote.trim();
+    const text =
+      museumData.curatorNote.trim();
 
     let index = 0;
 
@@ -183,7 +181,9 @@ function App() {
     const interval = setInterval(() => {
       index++;
 
-      setTypedText(text.slice(0, index));
+      setTypedText(
+        text.slice(0, index)
+      );
 
       if (index >= text.length) {
         clearInterval(interval);
@@ -196,17 +196,20 @@ function App() {
   }, [showNote]);
 
   /* =====================================================
-     MOVE TO EXHIBIT
+     MOVE BETWEEN EXHIBITS
   ===================================================== */
 
-  const moveToExhibit = (nextIndex: number) => {
-    const clampedIndex = Math.max(
-      0,
-      Math.min(
-        exhibits.length - 1,
-        nextIndex
-      )
-    );
+  const moveToExhibit = (
+    nextIndex: number
+  ) => {
+    const clampedIndex =
+      Math.max(
+        0,
+        Math.min(
+          exhibits.length - 1,
+          nextIndex
+        )
+      );
 
     if (
       clampedIndex ===
@@ -227,7 +230,9 @@ function App() {
 
     isMovingRef.current = true;
 
-    setActiveIndex(clampedIndex);
+    setActiveIndex(
+      clampedIndex
+    );
 
     if (animationRef.current) {
       cancelAnimationFrame(
@@ -241,17 +246,17 @@ function App() {
       const elapsed =
         currentTime - startTime;
 
-      const progress = Math.min(
-        elapsed / duration,
-        1
-      );
+      const progress =
+        Math.min(
+          elapsed / duration,
+          1
+        );
 
-      /*
-       * Smooth ease-in-out.
-       */
       const eased =
         progress < 0.5
-          ? 2 * progress * progress
+          ? 2 *
+            progress *
+            progress
           : 1 -
             Math.pow(
               -2 * progress + 2,
@@ -261,7 +266,8 @@ function App() {
 
       const value =
         start +
-        (end - start) * eased;
+        (end - start) *
+          eased;
 
       museumProgressRef.current =
         value;
@@ -277,29 +283,26 @@ function App() {
         museumProgressRef.current =
           end;
 
-        setMuseumProgress(end);
+        setMuseumProgress(
+          end
+        );
 
-        /*
-         * Small cooldown so trackpad momentum
-         * doesn't immediately trigger another frame.
-         */
         wheelUnlockRef.current =
           setTimeout(() => {
-            isMovingRef.current = false;
+            isMovingRef.current =
+              false;
           }, 160);
       }
     };
 
     animationRef.current =
-      requestAnimationFrame(animate);
+      requestAnimationFrame(
+        animate
+      );
   };
 
   /* =====================================================
-     CONTROLLED SCROLL
-     
-     ONE SCROLL GESTURE
-     =
-     ONE EXHIBIT
+     MOUSE WHEEL
   ===================================================== */
 
   useEffect(() => {
@@ -310,41 +313,39 @@ function App() {
     ) => {
       event.preventDefault();
 
-      /*
-       * If currently transitioning,
-       * ignore all extra wheel events.
-       */
       if (isMovingRef.current) {
         return;
       }
 
-      /*
-       * Ignore tiny accidental trackpad movement.
-       */
-      if (Math.abs(event.deltaY) < 20) {
+      if (
+        Math.abs(event.deltaY) < 20
+      ) {
         return;
       }
 
       const direction =
-        event.deltaY > 0 ? 1 : -1;
+        event.deltaY > 0
+          ? 1
+          : -1;
 
       const currentIndex =
         activeIndexRef.current;
 
       const nextIndex =
-        currentIndex + direction;
+        currentIndex +
+        direction;
 
-      /*
-       * Don't move beyond first/last exhibit.
-       */
       if (
         nextIndex < 0 ||
-        nextIndex >= exhibits.length
+        nextIndex >=
+          exhibits.length
       ) {
         return;
       }
 
-      moveToExhibit(nextIndex);
+      moveToExhibit(
+        nextIndex
+      );
     };
 
     window.addEventListener(
@@ -369,16 +370,21 @@ function App() {
         );
       }
 
-      if (animationRef.current) {
+      if (
+        animationRef.current
+      ) {
         cancelAnimationFrame(
           animationRef.current
         );
       }
     };
-  }, [started, exhibits.length]);
+  }, [
+    started,
+    exhibits.length,
+  ]);
 
   /* =====================================================
-     KEYBOARD FALLBACK
+     KEYBOARD
   ===================================================== */
 
   useEffect(() => {
@@ -388,34 +394,54 @@ function App() {
       event: KeyboardEvent
     ) => {
       if (
-        event.key === "ArrowRight" ||
-        event.key === "ArrowDown"
+        event.key ===
+          "ArrowRight" ||
+        event.key ===
+          "ArrowDown"
       ) {
         event.preventDefault();
 
-        if (isMovingRef.current) return;
+        if (
+          isMovingRef.current
+        ) {
+          return;
+        }
 
         moveToExhibit(
-          activeIndexRef.current + 1
+          activeIndexRef.current +
+            1
         );
       }
 
       if (
-        event.key === "ArrowLeft" ||
-        event.key === "ArrowUp"
+        event.key ===
+          "ArrowLeft" ||
+        event.key ===
+          "ArrowUp"
       ) {
         event.preventDefault();
 
-        if (isMovingRef.current) return;
+        if (
+          isMovingRef.current
+        ) {
+          return;
+        }
 
         moveToExhibit(
-          activeIndexRef.current - 1
+          activeIndexRef.current -
+            1
         );
       }
 
-      if (event.key === "Escape") {
-        setSelectedExhibit(null);
+      if (
+        event.key === "Escape"
+      ) {
+        setSelectedExhibit(
+          null
+        );
+
         setShowNote(false);
+
         setShowVideo(false);
       }
     };
@@ -453,28 +479,35 @@ function App() {
           </h1>
 
           <p className="entrance-subtitle">
-            A collection of little moments,
+            A collection of little
+            moments,
             <br />
-            memories, and everything in between.
+            memories, and everything
+            in between.
           </p>
 
           <div className="entrance-door">
             <div className="door-sign">
-              <span>EXHIBITION</span>
+              <span>
+                EXHIBITION
+              </span>
 
               <strong>
                 OUR STORY
               </strong>
 
               <small>
-                EST. {museumData.couple.date}
+                EST.{" "}
+                {museumData.couple.date}
               </small>
             </div>
           </div>
 
           <button
             className="enter-button"
-            onClick={() => setStarted(true)}
+            onClick={() =>
+              setStarted(true)
+            }
           >
             <span>
               Enter the Museum
@@ -486,7 +519,8 @@ function App() {
           </button>
 
           <div className="entrance-hint">
-            Best experienced with sound.
+            Best experienced with
+            sound.
           </div>
         </div>
       </main>
@@ -494,18 +528,21 @@ function App() {
   }
 
   /* =====================================================
-     MAIN MUSEUM
+     MUSEUM
   ===================================================== */
 
   return (
     <main className="museum">
-      {/* Hidden YouTube player */}
+
+      {/* Hidden YouTube Player */}
+
       <div
         id="youtube-player"
         className="youtube-player"
       />
 
-      {/* Side decorative lines */}
+      {/* Decorative Side Lines */}
+
       <div className="side-line left-line" />
       <div className="side-line right-line" />
 
@@ -514,7 +551,9 @@ function App() {
       ================================================= */}
 
       <header className="museum-header">
+
         <div className="museum-brand">
+
           <span className="brand-mark">
             ✦
           </span>
@@ -528,17 +567,22 @@ function App() {
               A PRIVATE COLLECTION
             </small>
           </div>
+
         </div>
 
         <div className="header-actions">
+
           <button
             className={`music-button ${
               musicPlaying
                 ? "playing"
                 : ""
             }`}
-            onClick={toggleMusic}
+            onClick={
+              toggleMusic
+            }
           >
+
             <span className="music-icon">
               ♫
             </span>
@@ -557,6 +601,7 @@ function App() {
                 <i />
               </span>
             )}
+
           </button>
 
           <button
@@ -565,10 +610,15 @@ function App() {
               setShowNote(true)
             }
           >
-            <span>✦</span>
+            <span>
+              ✦
+            </span>
+
             Curator's Note
           </button>
+
         </div>
+
       </header>
 
       {/* =================================================
@@ -576,6 +626,7 @@ function App() {
       ================================================= */}
 
       <div className="exhibit-counter">
+
         <span>
           {String(
             activeIndex + 1
@@ -589,47 +640,62 @@ function App() {
             exhibits.length
           ).padStart(2, "0")}
         </span>
+
       </div>
 
       {/* =================================================
-          MUSEUM STAGE
+          EXHIBIT TRACK
       ================================================= */}
 
       <section className="museum-stage">
+
         <div
           className="museum-track"
           style={{
-            transform: `translateX(-${
-              museumProgress * 100
-            }vw)`,
+            transform:
+              `translateX(-${
+                museumProgress *
+                100
+              }vw)`,
           }}
         >
+
           {exhibits.map(
-            (exhibit, index) => {
+            (
+              exhibit,
+              index
+            ) => {
+
               const isLast =
                 index ===
-                exhibits.length - 1;
+                exhibits.length -
+                  1;
 
               return (
                 <article
                   className={`exhibit ${
-                    index === activeIndex
+                    index ===
+                    activeIndex
                       ? "active"
                       : ""
                   }`}
                   key={index}
                 >
+
                   <div className="museum-room">
+
                     <div className="wall-light left" />
+
                     <div className="wall-light right" />
 
                     <div className="spotlight" />
 
-                    {/* =================================================
-                        TITLE
-                    ================================================= */}
+                    {/* =============================
+                        EXHIBIT TITLE
+                    ============================== */}
 
                     <div className="exhibit-heading">
+
                       <span>
                         EXHIBIT{" "}
                         {exhibit.number}
@@ -638,11 +704,12 @@ function App() {
                       <h2>
                         {exhibit.title}
                       </h2>
+
                     </div>
 
-                    {/* =================================================
-                        ARTWORK
-                    ================================================= */}
+                    {/* =============================
+                        WALL-MOUNTED ARTWORK
+                    ============================== */}
 
                     <button
                       className="artwork-button"
@@ -652,11 +719,15 @@ function App() {
                         )
                       }
                     >
+
                       <div className="frame-shadow" />
 
                       <div className="museum-frame">
-                        <div className="frame-gold inner">
+
+                        <div className="frame-gold">
+
                           <div className="mat">
+
                             <img
                               src={
                                 exhibit.image
@@ -667,11 +738,15 @@ function App() {
                             />
 
                             <div className="photo-glass" />
+
                           </div>
+
                         </div>
+
                       </div>
 
                       <div className="frame-label">
+
                         <span>
                           {exhibit.number}
                         </span>
@@ -683,67 +758,41 @@ function App() {
                         <small>
                           {exhibit.year}
                         </small>
+
                       </div>
+
                     </button>
 
-                    {/* =================================================
-                        PEDESTAL
-                    ================================================= */}
-
-                    <div className="pedestal">
-                      <div className="pedestal-top" />
-
-                      <div className="pedestal-body">
-                        <span />
-                        <span />
-                      </div>
-
-                      <div className="pedestal-base" />
-                    </div>
-
-                    {/* =================================================
-                        PLAQUE
-                    ================================================= */}
-
-                    <div className="plaque">
-                      <span>
-                        CATALOGUE
-                      </span>
-
-                      <strong>
-                        {exhibit.number}
-                      </strong>
-                    </div>
-
-                    {/* =================================================
+                    {/* =============================
                         FLOOR
-                    ================================================= */}
+                    ============================== */}
 
                     <div className="museum-floor" />
 
-                    {/* =================================================
+                    {/* =============================
                         LAST EXHIBIT VIDEO
-                    ================================================= */}
+                    ============================== */}
 
                     {isLast && (
                       <button
                         className="video-exhibit-button"
                         onClick={() =>
-                          setShowVideo(true)
+                          setShowVideo(
+                            true
+                          )
                         }
                       >
-                        <span>▶</span>
+                        <span>
+                          ▶
+                        </span>
 
                         Moving Memories
                       </button>
                     )}
 
-                    {/* =================================================
-                        SCROLL HINT
-                    ================================================= */}
-
                     {!isLast && (
                       <div className="scroll-hint">
+
                         <span>
                           SCROLL TO CONTINUE
                         </span>
@@ -753,18 +802,23 @@ function App() {
                         <span>
                           →
                         </span>
+
                       </div>
                     )}
+
                   </div>
+
                 </article>
               );
             }
           )}
+
         </div>
+
       </section>
 
       {/* =================================================
-          CURATOR NOTE MODAL
+          CURATOR NOTE
       ================================================= */}
 
       {showNote && (
@@ -774,12 +828,14 @@ function App() {
             setShowNote(false)
           }
         >
+
           <div
             className="curator-modal"
             onClick={(event) =>
               event.stopPropagation()
             }
           >
+
             <button
               className="modal-close"
               onClick={() =>
@@ -790,14 +846,21 @@ function App() {
             </button>
 
             <div className="letter-paper">
+
               <div className="letter-top">
-                <div>✦</div>
+
+                <div>
+                  ✦
+                </div>
 
                 <span>
                   THE MUSEUM OF US
                 </span>
 
-                <div>✦</div>
+                <div>
+                  ✦
+                </div>
+
               </div>
 
               <div className="letter-date">
@@ -805,6 +868,7 @@ function App() {
               </div>
 
               <div className="letter-text">
+
                 {typedText}
 
                 {typedText.length <
@@ -814,46 +878,60 @@ function App() {
                     |
                   </span>
                 )}
+
               </div>
 
               <div className="letter-signature">
+
                 With love,
+
                 <strong>
                   Your Favorite Person
                 </strong>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
       )}
 
       {/* =================================================
-          PHOTO DETAIL MODAL
+          PHOTO DETAIL
       ================================================= */}
 
       {selectedExhibit !== null && (
         <div
           className="modal-overlay"
           onClick={() =>
-            setSelectedExhibit(null)
+            setSelectedExhibit(
+              null
+            )
           }
         >
+
           <div
             className="exhibit-modal"
             onClick={(event) =>
               event.stopPropagation()
             }
           >
+
             <button
               className="modal-close"
               onClick={() =>
-                setSelectedExhibit(null)
+                setSelectedExhibit(
+                  null
+                )
               }
             >
               ×
             </button>
 
             <div className="modal-image">
+
               <img
                 src={
                   exhibits[
@@ -866,9 +944,11 @@ function App() {
                   ].title
                 }
               />
+
             </div>
 
             <div className="modal-info">
+
               <span>
                 EXHIBIT{" "}
                 {
@@ -908,13 +988,16 @@ function App() {
                 "Some memories deserve
                 to be displayed forever."
               </em>
+
             </div>
+
           </div>
+
         </div>
       )}
 
       {/* =================================================
-          VIDEO MODAL
+          VIDEO
       ================================================= */}
 
       {showVideo && (
@@ -924,12 +1007,14 @@ function App() {
             setShowVideo(false)
           }
         >
+
           <div
             className="video-modal"
             onClick={(event) =>
               event.stopPropagation()
             }
           >
+
             <button
               className="modal-close"
               onClick={() =>
@@ -940,6 +1025,7 @@ function App() {
             </button>
 
             <div className="video-frame">
+
               <video
                 src={
                   museumData.video.src
@@ -947,15 +1033,19 @@ function App() {
                 controls
                 playsInline
               />
+
             </div>
 
             <div className="video-info">
+
               <span>
                 MOVING MEMORIES
               </span>
 
               <h2>
-                {museumData.video.title}
+                {
+                  museumData.video.title
+                }
               </h2>
 
               <p>
@@ -964,10 +1054,14 @@ function App() {
                     .description
                 }
               </p>
+
             </div>
+
           </div>
+
         </div>
       )}
+
     </main>
   );
 }

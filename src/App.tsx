@@ -384,6 +384,72 @@ function App() {
   ]);
 
   /* =====================================================
+     TOUCH SWIPE (MOBILE)
+  ===================================================== */
+
+  useEffect(() => {
+    if (!started) return;
+
+    let touchStartY = 0;
+    let touchEndY = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const handleTouchStart = (event: TouchEvent) => {
+      touchStartY = event.touches[0].clientY;
+      touchEndY = touchStartY;
+
+      touchStartX = event.touches[0].clientX;
+      touchEndX = touchStartX;
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      touchEndY = event.touches[0].clientY;
+      touchEndX = event.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+      if (isMovingRef.current) return;
+
+      const deltaY = touchStartY - touchEndY;
+      const deltaX = touchStartX - touchEndX;
+
+      // Ignore if the gesture was more horizontal than vertical
+      // (prevents accidental triggers from sideways swipes)
+      if (Math.abs(deltaX) > Math.abs(deltaY)) return;
+
+      if (Math.abs(deltaY) < 40) return;
+
+      // Swiped finger upward (deltaY positive) = go to next exhibit
+      // Swiped finger downward (deltaY negative) = go to previous exhibit
+      const direction = deltaY > 0 ? 1 : -1;
+
+      const currentIndex = activeIndexRef.current;
+      const nextIndex = currentIndex + direction;
+
+      if (nextIndex < 0 || nextIndex >= exhibits.length) return;
+
+      moveToExhibit(nextIndex);
+    };
+
+    window.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+
+    window.addEventListener("touchmove", handleTouchMove, {
+      passive: true,
+    });
+
+    window.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [started, exhibits.length]);
+
+  /* =====================================================
      KEYBOARD
   ===================================================== */
 

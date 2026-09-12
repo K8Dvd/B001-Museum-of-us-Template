@@ -625,6 +625,8 @@ button:focus-visible {
   inset: 0;
 
   overflow: hidden;
+
+  touch-action: none;
 }
 
 .museum-track {
